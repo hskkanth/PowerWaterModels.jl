@@ -48,6 +48,7 @@ function assign_pump_loads!(data::Dict{String,Any})
     for nw in nw_ids_pmd
         # Assign the pump loads at appropriate multinetwork indices.
         _assign_pump_loads!(data, power_source_type, nw)
+        _assign_ne_pump_loads!(data, power_source_type, nw)
     end
 end
 
@@ -80,6 +81,37 @@ function _assign_pump_loads!(data::Dict{String,Any}, power_source_type::String, 
         end
     end
 end
+
+function _assign_ne_pump_loads!(data::Dict{String,Any}, power_source_type::String, nw::String)
+    for ne_pump_load in values(data["it"]["dep"]["nw"][nw]["ne_pump_load"])
+        # Change the indices of the expansion pump to match network subdataset.
+        ne_pump_name = ne_pump_load["ne_pump"]["source_id"]
+        ne_pumps = data["it"][_WM.wm_it_name]["nw"][nw]["ne_pump"]
+        ne_pump_name = typeof(ne_pump_name) == String ? ne_pump_name : string(ne_pump_name)
+        ne_pump = ne_pumps[findfirst(x -> ne_pump_name == x["source_id"][2], ne_pumps)]
+        ne_pump_load["ne_pump"]["index"] = ne_pump["index"]
+
+        # Change the indices of the load to match network subdataset.
+        load_name = ne_pump_load["load"]["source_id"]
+        loads = data["it"][_PMD.pmd_it_name]["nw"][nw]["load"]
+        load_name = typeof(load_name) == String ? load_name : string(load_name)
+        load_key = _get_load_id_from_name(data, load_name, power_source_type; nw = nw)
+        ne_pump_load["load"]["index"] = parse(Int, load_key)
+
+        # Check if either of the components or the dependency is inactive.
+        load_is_inactive = loads[load_key]["status"] == _PMD.DISABLED
+        ne_pump_is_inactive = ne_pump["status"] == _WM.STATUS_INACTIVE
+        ne_pump_load_is_inactive = ne_pump_load["status"] == STATUS_INACTIVE
+
+        if (load_is_inactive || ne_pump_is_inactive) || ne_pump_load_is_inactive
+            # If any of the above statuses are inactive, all are inactive.
+            loads[load_key]["status"] = _PMD.DISABLED
+            ne_pump["status"] = _WM.STATUS_INACTIVE
+            ne_pump_load["status"] = STATUS_INACTIVE
+        end
+    end
+end
+
 
 
 function networks_are_consistent(p_data::Dict{String,<:Any}, w_data::Dict{String,<:Any})
@@ -147,7 +179,7 @@ function make_multinetwork(data::Dict{String,<:Any})
             # Get water and power network indices.
             nw_id_pmd = collect(keys(pmd_data["nw"]))[1]
             nw_ids_wm = collect(keys(w_data_tmp["nw"]))
-            
+
 
             # Assume the same power properties across all subnetworks.
             p_data_tmp = deepcopy(pmd_data)

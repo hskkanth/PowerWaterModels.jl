@@ -30,7 +30,18 @@
                     },
                     "status": 1
                 }
-            }
+            },
+            "ne_pump_load": {
+              "1": {
+                "ne_pump": {
+                  "source_id": "2"
+                },
+                "load": {
+                    "source_id": "Load.645"
+                },
+                "status": 1
+                }
+              }
         },
         "pmd": {
             "source_type": "opendss",
@@ -283,6 +294,29 @@
                     "diameter": 60.0
                 }
             },
+            "ne_pump": {
+                "2": {
+                    "source_id": [
+                        "ne_pump",
+                        "2"
+                    ],
+                    "name": "2",
+                    "node_to": 1,
+                    "node_fr":9,
+                    "flow_max_reverse":  0.0,
+                    "pump_type": "PUMP_QUADRATIC",
+                    "flow_direction":"FLOW_DIRECTION_POSITIVE",
+                    "source_id":["pump", "2"],
+                    "status": "STATUS_UNKNOWN",
+                    "head_curve": "[(0.0, 200.0), (.150, 150.0), (.200, 75.0)]",
+                    "index":2,
+                    "flow_max":0.23732468592703956,
+                    "efficiency":0.8075,
+                    "energy_price":2.7777777777777776e-7,
+                    "flow_min":0.0,
+                    "flow_min_forward":6.314653819444538e-6
+                  }
+                },
             "source_type": "epanet"
         }
     }
