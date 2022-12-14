@@ -31,5 +31,5 @@ function build_opwf_ne(pwm::AbstractPowerWaterModel)
 
     # Add the objective that minimizes power generation costs.
     _PMD.objective_mc_min_fuel_cost(pmd)
-    
+
 end
