@@ -58,6 +58,7 @@ module PowerWaterModels
     # Deprecated functions.
     include("deprecated.jl")
 
+    println("TESTING NE VERSION Nov 8 - SK")
     # This must come last to support automated export.
     include("core/export.jl")
 end
