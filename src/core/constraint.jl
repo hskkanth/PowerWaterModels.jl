@@ -48,8 +48,6 @@ function constraint_ne_pump_load(pwm::AbstractPowerWaterModel, i::Int, a::Int; n
 end
 
 
-<<<<<<< Updated upstream
-=======
 """
     constraint_budget_ne(pm::AbstractPowerWaterModel)
 """
@@ -68,7 +66,6 @@ function constraint_budget_ne(pwm::AbstractPowerWaterModel)
 end
 
 
->>>>>>> Stashed changes
 function _get_power_load_expression(pwm::AbstractPowerWaterModel, i::Int; nw::Int = _IM.nw_id_default)
     pmd = _get_powermodel_from_powerwatermodel(pwm)
     pd = sum(_PMD.ref(pmd, nw, :load, i)["pd"])
