@@ -306,7 +306,7 @@
                     "flow_max_reverse":  0.0,
                     "pump_type": "PUMP_QUADRATIC",
                     "flow_direction":"FLOW_DIRECTION_POSITIVE",
-                    "source_id":["pump", "2"],
+                    "source_id":["ne_pump", "2"],
                     "status": "STATUS_UNKNOWN",
                     "head_curve": "[(0.0, 200.0), (.150, 150.0), (.200, 75.0)]",
                     "index":2,

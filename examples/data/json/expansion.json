@@ -19,7 +19,7 @@
                     "load": {
                         "source_id": "Load.645"
                     },
-                    "status": 1
+                    "status": 0
                 },
                 "3": {
                     "pump": {

@@ -48,7 +48,10 @@ function assign_pump_loads!(data::Dict{String,Any})
     for nw in nw_ids_pmd
         # Assign the pump loads at appropriate multinetwork indices.
         _assign_pump_loads!(data, power_source_type, nw)
-        _assign_ne_pump_loads!(data, power_source_type, nw)
+
+        if(haskey(data["it"]["dep"]["nw"][nw],"ne_pump_load"))
+            _assign_ne_pump_loads!(data, power_source_type, nw)
+        end
     end
 end
 
@@ -263,6 +266,22 @@ function _modify_loads!(data::Dict{String,<:Any})
             load_power = inv(sum(x -> x > 0.0, load["pd"])) * factor * P_max
             load["pd"][load["pd"].>0.0] .= load_power
             load["qd"][load["qd"].>0.0] .= 0.0 # Assume no reactive load.
+        end
+
+        if(haskey(data["it"]["dep"]["nw"][string(nw)],"ne_pump_load"))
+            for ne_pump_load in values(data["it"]["dep"]["nw"][string(nw)]["ne_pump_load"])
+                # Obtain maximum pump power in units used by the water network.
+                ne_pump = w_data["nw"][string(nw)]["ne_pump"][string(ne_pump_load["ne_pump"]["index"])]
+                node_fr = w_data["nw"][string(nw)]["node"][string(ne_pump["node_fr"])]
+                node_to = w_data["nw"][string(nw)]["node"][string(ne_pump["node_to"])]
+                P_max = _WM._calc_pump_power_max(ne_pump, node_fr, node_to, rho_s, g_s)
+
+                # Change the loads associated with pumps.
+                load = p_data["nw"][string(nw)]["load"][string(ne_pump_load["load"]["index"])]
+                load_power = inv(sum(x -> x > 0.0, load["pd"])) * factor * P_max
+                load["pd"][load["pd"].>0.0] .= load_power
+                load["qd"][load["qd"].>0.0] .= 0.0 # Assume no reactive load.
+            end
         end
     end
 end

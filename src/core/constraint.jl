@@ -37,14 +37,14 @@ function constraint_pump_load(pwm::AbstractPowerWaterModel, i::Int, a::Int; nw::
     power_load = _get_power_load_expression(pwm, i, nw = nw)
     pump_load = _get_pump_load_expression(pwm, a, nw = nw)
     factor = _get_power_conversion_factor(pwm.data, string(nw))
-    JuMP.@constraint(pwm.model, factor * pump_load == power_load)
+    c = JuMP.@constraint(pwm.model, factor * pump_load == power_load)
 end
 
 function constraint_ne_pump_load(pwm::AbstractPowerWaterModel, i::Int, a::Int; nw::Int = _IM.nw_id_default)
     power_load = _get_power_load_expression(pwm, i, nw = nw)
     ne_pump_load = _get_ne_pump_load_expression(pwm, a, nw = nw)
     factor = _get_power_conversion_factor(pwm.data, string(nw))
-    JuMP.@constraint(pwm.model, factor * ne_pump_load == power_load)
+    c = JuMP.@constraint(pwm.model, factor * ne_pump_load == power_load)
 end
 
 
@@ -78,7 +78,7 @@ function constraint_budget_ne(pwm::AbstractPowerWaterModel)
 
     total_ne_cost = power_ne_cost + water_ne_cost
     first_nw_id = sort(collect(_PMD.nw_ids(pmd)))[1]
-    budget_ne = _IM.ref(pwm, :dep, first_nw_id, :budget_ne)    
+    budget_ne = _IM.ref(pwm, :dep, first_nw_id, :budget_ne)
 
     JuMP.@constraint(pwm.model, total_ne_cost <= budget_ne)
 end
