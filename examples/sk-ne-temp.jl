@@ -15,8 +15,8 @@ linking_file = "PowerWaterModels.jl/examples/data/json/expansion.json"
 # linking_file = "PowerWaterModels.jl/examples/data/json/expansion_reg_and_ne_pumps.json"
 
 # power_file = "PowerWaterModels.jl/examples/data/opendss/IEEE13_CDPSM.dss";
-# water_file = "PowerWaterModels.jl/examples/data/epanet/cohen-ne_reg_pump_removed.inp";
-# linking_file = "PowerWaterModels.jl/examples/data/json/expansion_ne_pump_replaces_reg_pump.json"
+# water_file = "PowerWaterModels.jl/examples/data/epanet/cohen-ne_reg_pump_removed-5.inp";
+# linking_file = "PowerWaterModels.jl/examples/data/json/expansion_ne_pump_replaces_reg_pump-5.json"
 
 
 
