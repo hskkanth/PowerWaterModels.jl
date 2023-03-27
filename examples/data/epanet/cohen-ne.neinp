@@ -1,0 +1,24 @@
+[NE_PUMPS]
+;ID    Node1    Node2    Parameters  ConstructionCost
+5        4        5         HEAD 1              0.0;
+
+[NE_TANKS]
+;ID    Elevation    InitLevel    MinLevel    MaxLevel    Diameter    MinVol
+11     35.0            30.0         0.0         30.0        5.0         0.0
+12     35.0            30.0         0.0         30.0        10.0        0.0
+13     35.0            15.625       0.0         30.0        20.0        0.0
+14     35.0            3.90625      0.0         30.0        40.0        0.0
+15     35.0            1.73611      0.0         30.0        60.0        0.0
+
+
+[NE_SHORT_PIPES]
+;ID    Node1    Node2    Status  ConstructionCost
+11     11       10       Open    341698.84;
+12     12       10       Open    928296.29;
+13     13       10       Open    2521910.83;
+14     14       10       Open    6851297.66;
+15     15       10       Open    12293393.38;
+
+
+
+[END]

@@ -1,0 +1,71 @@
+{
+    "it": {
+        "dep": {
+            "budget_ne": 10000.0,
+            "pump_load": {
+                "1": {
+                    "pump": {
+                        "source_id": "1"
+                    },
+                    "load": {
+                        "source_id": "Load.634a"
+                    },
+                    "status": 1
+                },
+                "2": {
+                  "pump": {
+                    "source_id": "2"
+                  },
+                  "load": {
+                      "source_id": "Load.645"
+                  },
+                  "status": 1
+                }
+            },
+            "ne_pump_load": {
+              "3": {
+                "ne_pump": {
+                    "source_id": "5"
+                },
+                "load": {
+                    "source_id": "Load.611"
+                },
+                "status": 1
+              }
+            }
+        },
+        "pmd": {
+            "source_type": "opendss",
+            "storage_ne": {
+                "s_ne1": {
+                    "connections": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "energy": 5.0,
+                    "xs": 0.0,
+                    "fixed_cost": 1000.0,
+                    "bus": "sourcebus",
+                    "charge_ub": 5.0,
+                    "configuration": 0,
+                    "energy_ub": 5.0,
+                    "qs": -0.0,
+                    "status": 1,
+                    "qex": 0.0,
+                    "sm_ub": 5.0,
+                    "source_id": "storage.s_ne1",
+                    "qs_lb": -5.0,
+                    "pex": 0.0,
+                    "charge_efficiency": 100.0,
+                    "discharge_ub": 5.0,
+                    "ps": -5.0,
+                    "rs": 0.0,
+                    "discharge_efficiency": 100.0,
+                    "qs_ub": 5.0
+                }
+            }
+        }
+    }
+}

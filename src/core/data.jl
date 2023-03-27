@@ -3,7 +3,7 @@ function correct_network_data!(data::Dict{String,Any})
     _PMD.correct_network_data!(data; make_pu = true)
 
     # Correct and prepare water network data.
-    _WM.correct_network_data!(data)
+    _WM.correct_network_data!(data["it"][_WM.wm_it_name])
 end
 
 

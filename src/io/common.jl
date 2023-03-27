@@ -33,8 +33,8 @@ function parse_power_file(file_path::String)
 end
 
 
-function parse_water_file(file_path::String; skip_correct::Bool = true)
-    data = _WM.parse_file(file_path; skip_correct = skip_correct)
+function parse_water_file(file_path::String; ne_path::String, skip_correct::Bool = true)
+    data = _WM.parse_file(file_path; ne_path = ne_path, skip_correct = skip_correct)
     return _IM.ismultiinfrastructure(data) ? data :
            Dict("multiinfrastructure" => true, "it" => Dict(_WM.wm_it_name => data))
 end
@@ -47,10 +47,10 @@ Parses power, water, and linking data from `power_path`, `water_path`, and `link
 respectively, into a single data dictionary. Returns a PowerWaterModels
 multi-infrastructure data structure keyed by the infrastructure type `it`.
 """
-function parse_files(power_path::String, water_path::String, link_path::String)
+function parse_files(power_path::String, water_path::String, link_path::String; water_ne_path::String="")
     joint_network_data = parse_link_file(link_path)
     _IM.update_data!(joint_network_data, parse_power_file(power_path))
-    _IM.update_data!(joint_network_data, parse_water_file(water_path))
+    _IM.update_data!(joint_network_data, parse_water_file(water_path, ne_path = water_ne_path))
     correct_network_data!(joint_network_data)
 
     # Store whether or not each network uses per-unit data.

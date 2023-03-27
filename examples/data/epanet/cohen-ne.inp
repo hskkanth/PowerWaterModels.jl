@@ -33,8 +33,7 @@ Zamzam et al. (2019) network, converted to EPANET by Byron Tasseff
 [PUMPS]
 ;ID    Node1    Node2    Parameters
   1        8        2       HEAD 1;
-  2        9        1       HEAD 1;
-  5        4        5       HEAD 1;
+  2        9        1         HEAD 1;
 
 [VALVES]
 ;ID    Node1    Node2    Diameter    Type    Setting    MinorLoss
