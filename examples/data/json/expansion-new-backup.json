@@ -20,18 +20,18 @@
                       "source_id": "Load.645"
                   },
                   "status": 1
+                },
+                "3": {
+                    "pump": {
+                        "source_id": "5"
+                    },
+                    "load": {
+                        "source_id": "Load.611"
+                    },
+                    "status": 1
                 }
             },
             "ne_pump_load": {
-              "3": {
-                "ne_pump": {
-                    "source_id": "5"
-                },
-                "load": {
-                    "source_id": "Load.611"
-                },
-                "status": 1
-              }
             }
         },
         "pmd": {

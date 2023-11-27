@@ -58,11 +58,13 @@ function constraint_budget_ne(pwm::AbstractPowerWaterModel)
     wm = _get_watermodel_from_powerwatermodel(pwm)
     water_ne_cost = _WM.objective_ne(wm)
 
-    total_ne_cost = power_ne_cost + water_ne_cost
     first_nw_id = sort(collect(_PMD.nw_ids(pmd)))[1]
+    lambda = _IM.ref(pwm, :dep, first_nw_id, :budget_proportion)
     budget_ne = _IM.ref(pwm, :dep, first_nw_id, :budget_ne)
+    total_ne_cost = power_ne_cost + water_ne_cost
+    total_weighted_ne_cost = lambda*power_ne_cost + (1-lambda)*water_ne_cost
 
-    JuMP.@constraint(pwm.model, total_ne_cost <= budget_ne)
+    JuMP.@constraint(pwm.model, total_weighted_ne_cost <= budget_ne)
 end
 
 function _get_power_load_expression(pwm::AbstractPowerWaterModel, i::Int; nw::Int = _IM.nw_id_default)

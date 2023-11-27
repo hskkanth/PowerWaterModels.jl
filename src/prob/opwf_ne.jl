@@ -15,20 +15,48 @@ end
 
 "Construct the budget-constrained optimal power-water flow problem."
 function build_opwf_ne(pwm::AbstractPowerWaterModel)
+
+    first_nw_id = sort(collect(_IM.nw_ids(pwm, :dep)))[1]
+    power_constraints = _IM.ref(pwm, :dep, first_nw_id, :power_con)
     # Power-only related variables and constraints.
     pmd = _get_powermodel_from_powerwatermodel(pwm)
-    _PMD.build_mn_mc_mld_simple(pmd)
+    if(power_constraints == "p_on")
+        # _PMD.build_mn_mc_mld_simple_flexible_loads(pmd)
+        _PMD.build_mn_mc_mld_multi_scenario_flexible_loads(pmd)
+    end
 
-    # Water-only related variables and constraints.
-    wm = _get_watermodel_from_powerwatermodel(pwm)
-    _WM.build_mn_owf(wm)
+    water_constraints = _IM.ref(pwm, :dep, first_nw_id, :water_con)
+    if(water_constraints == "w_on")
+        # Water-only related variables and constraints.
+        wm = _get_watermodel_from_powerwatermodel(pwm)
+        _WM.build_mn_owf(wm)
+    end
+
 
     # Power-water linking constraints.
-    build_linking(pwm)
+    linking_choice = _IM.ref(pwm, :dep, first_nw_id, :linking)
+    if(linking_choice == "on")
+        build_linking(pwm)
 
-    # Constraints on the total expansion budget.
+        # Constraints on the total expansion budget.
+    else
+        println("***** No Linking Constraints*******")
+    end
     constraint_budget_ne(pwm)
 
-    # Add the objective that minimizes power generation costs.
-    _PMD.objective_mc_min_fuel_cost(pmd)
+    objective_choice = _IM.ref(pwm, :dep, first_nw_id, :objective_choice)
+
+    if(objective_choice == "demand")
+        objective_max_combined_weighted_demand(pwm)
+    elseif objective_choice == "power"
+        objective_max_weighted_power(pwm)
+    elseif objective_choice == "min_fuel_cost"
+        # Add the objective that minimizes power generation costs.
+        _PMD.objective_mc_min_fuel_cost(pmd)
+    elseif objective_choice == "construction_cost"
+        objective_weighted_ne(pwm)
+    end
+
+    # println(pwm.model)
+    # objective_ne(pwm)
 end

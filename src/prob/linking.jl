@@ -10,6 +10,8 @@ function build_linking(pwm::AbstractPowerWaterModel)
             # Constrain load variables if they are connected to a pump.
             pump_index = pump_load["pump"]["index"]
             load_index = pump_load["load"]["index"]
+            factor = _get_power_conversion_factor(pwm.data, string(nw))
+            # println("Temporarily removed the linking constraints***********")
             constraint_pump_load(pwm, load_index, pump_index; nw = nw)
         end
 
@@ -28,6 +30,7 @@ function build_linking(pwm::AbstractPowerWaterModel)
                 # Constrain load variables if they are connected to a network expansion pump.
                 ne_pump_index = ne_pump_load["ne_pump"]["index"]
                 ne_load_index = ne_pump_load["load"]["index"]
+                # println("Temporarily removed the linking constraints***********")
                 constraint_ne_pump_load(pwm, ne_load_index, ne_pump_index; nw = nw)
             end
 
@@ -38,7 +41,14 @@ function build_linking(pwm::AbstractPowerWaterModel)
 
         for load_index in setdiff(load_ids, var_load_ids)
             # Constrain load variables if they are not connected to a pump.
-            constraint_fixed_load(pwm, load_index; nw = nw)
+            first_nw_id = sort(collect(_IM.nw_ids(pwm, :dep)))[1]
+            power_load_shed = _IM.ref(pwm, :dep, first_nw_id, :power_load_shed)
+
+            if(power_load_shed == 0)
+                constraint_fixed_load(pwm, load_index; nw = nw)
+            elseif(power_load_shed == 1)
+                println("********** Allowing load shedding at non-pump loads *****")
+            end
         end
     end
 end

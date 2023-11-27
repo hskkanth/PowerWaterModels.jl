@@ -63,7 +63,10 @@ New linecode.mtx607 nphases=1 BaseFreq=60
 ~ xmatrix = (0.5124 )
 ~ cmatrix = [236]
 ~ units=mi normamps=165
-New Loadshape.ls1 pmult=(file=load_profile_8days.csv)
+
+New Loadshape.ls1 pmult=(file=load_profile_12hr.csv)
+New Loadshape.pv_ts pmult=(file=pv_profile_12hr.csv)
+
 
 New Load.671 Bus1=671.1.2.3       Phases=3 Conn=Delta Model=1 kV=4.16   kW=1155 kvar=660 daily=ls1
 New Load.634a Bus1=634.1   Phases=1 Conn=Wye  Model=1 kV=0.277  kW=160   kvar=110 daily=ls1
@@ -80,6 +83,7 @@ New Load.652 Bus1=652.1    Phases=1 Conn=Wye  Model=2 kV=2.4  kW=128   kvar=86 d
 New Load.670a Bus1=670.1   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=17    kvar=10 daily=ls1
 New Load.670b Bus1=670.2   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=66    kvar=38 daily=ls1
 New Load.670c Bus1=670.3   Phases=1 Conn=Wye  Model=1 kV=2.4  kW=117  kvar=68 daily=ls1
+
 
 New Capacitor.Cap1 Bus1=675 phases=3 kVAR=600 kV=4.16
 New Capacitor.Cap2 Bus1=611.3 phases=1 kVAR=100 kV=2.4

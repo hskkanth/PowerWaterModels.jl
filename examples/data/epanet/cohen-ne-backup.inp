@@ -1,0 +1,157 @@
+[TITLE]
+Zamzam et al. (2019) network, converted to EPANET by Byron Tasseff
+
+[JUNCTIONS]
+;ID    Elev    Demand    Pattern
+  1     6.0       0.0           ;
+  2    33.0       0.0           ;
+  3    41.5     33.33     demand;
+  4    32.0     36.11     demand;
+  5    73.0     38.89     demand;
+  6    43.0     27.78     demand;
+  7    44.0     44.44     demand;
+
+[RESERVOIRS]
+;ID    Head    Pattern
+  8    -2.5           ;
+  9    -5.0           ;
+
+[TANKS]
+;ID    Elevation    InitLevel    MinLevel    MaxLevel    Diameter    MinVol    VolCurve
+10     35.0            30.0         0.0         30.0        5.0         0.0
+
+[PIPES]
+;ID    Node1    Node2    Length    Diameter    Roughness    MinorLoss    Status
+  3        2        1    6000.0       300.0        130.0          0.0        CV;
+  4        2        3    1200.0       250.0        130.0          0.0      Open;
+  6        3        4    4300.0       300.0        130.0          0.0      Open;
+  7        1       10     400.0       250.0        130.0          0.0      Open;
+  8       10        7     400.0       250.0        130.0          0.0      Open;
+  9        7        6    5000.0       300.0        130.0          0.0      Open;
+ 10        6        3    3500.0       300.0        130.0          0.0        CV;
+
+[PUMPS]
+;ID    Node1    Node2    Parameters
+  1        8        2       HEAD 1;
+  2        9        1       HEAD 1;
+  5        4        5       HEAD 1;
+
+[VALVES]
+;ID    Node1    Node2    Diameter    Type    Setting    MinorLoss
+
+[TAGS]
+
+[DEMANDS]
+;Junction    Demand    Pattern    Category
+
+[STATUS]
+;ID    Status/Setting
+
+[PATTERNS]
+;ID          Multipliers
+demand      0.6400302 	0.648639847 	0.583823803 	0.500889753 	0.536574316 	0.569367892
+ demand 	0.620556791 	0.708831196 	0.798533968 	0.814206681 	0.8063568 	0.737017823
+ demand 	0.657248833 	0.62519521 	0.58460585 	0.54152339 	0.502544297 	0.462555198
+ demand 	0.447959337 	0.438372618 	0.427361669 	0.451361227 	0.425665634 	0.428458362
+ demand 	0.386546906 	0.381868976 	0.49650367 	0.50820662 	0.456399027 	0.540287923
+ demand 	0.603802143 	0.650537424 	0.710557955 	0.69415307 	0.564724964 	0.485302808
+ demand 	0.451878017 	0.43877553 	0.420504652 	0.409434668 	0.402583853 	0.399998811
+ demand 	0.408444474 	0.429344468 	0.447988136 	0.472974529 	0.470643058 	0.471038992
+ demand 	0.267736687 	0.268869128 	0.290405793 	0.321268513 	0.338630514 	0.358931941
+ demand 	0.381124486 	0.461477829 	0.4709455 	0.480916322 	0.501473906 	0.505195897
+ demand 	0.484009626 	0.471518512 	0.453508011 	0.42471963 	0.400772819 	0.396698108
+ demand 	0.394198288 	0.356263831 	0.323153513 	0.298164766 	0.291455625 	0.298475621
+ demand 	0.283197866 	0.280812672 	0.300233908 	0.303127709 	0.324891413 	0.35112984
+ demand 	0.333812001 	0.375526395 	0.37633173 	0.363242163 	0.359388203 	0.361086679
+ demand 	0.363803029 	0.373625056 	0.381380584 	0.385747228 	0.384591327 	0.391288896
+ demand 	0.38328488 	0.365347254 	0.341681551 	0.327059818 	0.323071708 	0.292343053
+ demand 	0.283144544 	0.282967524 	0.301245723 	0.315970251 	0.31979811 	0.338205062
+ demand 	0.36806659 	0.4345704 	0.487362072 	0.541531889 	0.577616262 	0.6003148
+ demand 	0.595880105 	0.591034314 	0.568455197 	0.527329234 	0.481987288 	0.454204607
+ demand 	0.424378396 	0.376428667 	0.344840839 	0.317515912 	0.314899113 	0.305545723
+ demand 	0.295981286 	0.289744975 	0.302003996 	0.299948953 	0.320695501 	0.337277033
+ demand 	0.323216253 	0.349682323 	0.368030756 	0.370618497 	0.360150898 	0.369001568
+ demand 	0.380610165 	0.38847044 	0.390844608 	0.395579391 	0.409519517 	0.407717068
+ demand 	0.39622077 	0.382109482 	0.358609314 	0.343963203 	0.338985042 	0.305111973
+ demand 	0.255647565 	0.259761614 	0.27953221 	0.30057497 	0.323071421 	0.339196002
+ demand 	0.363826804 	0.445302941 	0.476726325 	0.481782559 	0.50139322 	0.516859769
+ demand 	0.509444643 	0.507497534 	0.489522868 	0.463413969 	0.437783814 	0.41073899
+ demand 	0.388961072 	0.352369241 	0.325359936 	0.306497584 	0.289933423 	0.283094209
+ demand 	0.285275909 	0.285094926 	0.30375163 	0.307693023 	0.332114817 	0.358738296
+ demand 	0.336139509 	0.394882451 	0.41179333 	0.372415518 	0.352823808 	0.359921704
+ demand 	0.368522048 	0.375795988 	0.377454294 	0.374386344 	0.371680503 	0.369302115
+ demand 	0.352556742 	0.343697745 	0.339351372 	0.332347628 	0.331642419 	0.300772664
+
+
+[CURVES]
+;ID    X-Value    Y-Value
+ 1     0.000      200.0000
+ 1     150.0      150.0000
+ 1     200.0      75.00000
+
+[CONTROLS]
+
+[RULES]
+
+[ENERGY]
+ Global Efficiency  	    80.75
+ Global Price       	    1.0
+ Demand Charge      	    0.0
+
+[EMITTERS]
+;Junction  Coefficient
+
+[QUALITY]
+;Node  InitQual
+
+[SOURCES]
+;Node  Type  Quality  Pattern
+
+[REACTIONS]
+
+[MIXING]
+;Tank  Model
+
+[TIMES]
+ Duration              192:00
+ Hydraulic Timestep    1:00
+ Quality Timestep      1:00
+ Pattern Timestep      1:00
+ Pattern Start         0:00
+ Report Timestep       1:00
+ Report Start          0:00
+ Start ClockTime       12 am
+ Statistic             NONE
+
+[REPORT]
+ Status     Yes
+ Summary    No
+ Page       0
+
+[OPTIONS]
+ Units                LPS
+ Headloss             H-W
+ Specific Gravity     1.0
+ Viscosity            1.0
+ Trials               40
+ Accuracy             0.00001
+ Unbalanced           Continue 10
+ Pattern              1
+ Demand Multiplier    1.0
+ Emitter Exponent     0.5
+ Quality              None mg/L
+ Diffusivity          1.0
+ Tolerance            0.01
+
+[COORDINATES]
+;Node   X-Coord  Y-Coord
+
+[VERTICES]
+;Link   X-Coord  Y-Coord
+
+[LABELS]
+;X-Coord   Y-Coord  Label & Anchor Node
+
+[BACKDROP]
+
+[END]
